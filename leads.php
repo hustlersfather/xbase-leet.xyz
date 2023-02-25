@@ -471,7 +471,9 @@ if ($reselerif == "1") {
 
 </div>
 </nav>
-<style><div class="d-flex flex-row-reverse mt-0">
+<style>
+
+<div class="d-flex flex-row-reverse mt-0">
 <div class="p-2">
 <label id="switch" class="switch">
 <input type="checkbox" onchange="toggleTheme()" id="slider">
