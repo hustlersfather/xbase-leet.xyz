@@ -8,7 +8,9 @@ date_default_timezone_set('UTC');
 include "../includes/config.php";
 
 if(!isset($_SESSION['sname']) and !isset($_SESSION['sname'])){
-
+   header("location: ");
+   exit();
+}
 // $usrid = mysqli_real_escape_string($dbcon, $_SESSION['sname']);
 // if($usrid !== "freshtools") {
 // 	die();
