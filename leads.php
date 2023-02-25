@@ -204,7 +204,11 @@ $usrid = mysqli_real_escape_string($dbcon, $_SESSION['sname']);
   <li class="active"><a href="#filter" data-toggle="tab">Filter</a></li>
 </ul>
 <div id="myTabContent" class="tab-content" >
-  <div class="tab-pane active in" id="filter"><table class="table"><thead><tr><th>Country</th>
+  <div class="tab-pane active in" id="filter">
+<table class="table">
+<thead>
+<tr>
+<th>Country</th>
 <th>Description</th>
 <th>Seller</th>
 <th></th></tr></thead><tbody><tr><td><select class='filterselect form-control input-sm' name="leads_country"><option value="">ALL</option>
@@ -214,6 +218,13 @@ $query = mysqli_query($dbcon, "SELECT DISTINCT(`country`) FROM `leads` WHERE `so
 	echo '<option value="'.$row['country'].'">'.$row['country'].'</option>';
 	}
 ?>
+
+
+
+
+
+
+
 </select></td><td><input class='filterinput form-control input-sm' name="leads_about" size='3'></td><td><select class='filterselect form-control input-sm' name="leads_seller"><option value="">ALL</option>
 <?php
 $query = mysqli_query($dbcon, "SELECT DISTINCT(`resseller`) FROM `leads` WHERE `sold` = '0' ORDER BY resseller ASC");
@@ -244,6 +255,34 @@ $query = mysqli_query($dbcon, "SELECT DISTINCT(`resseller`) FROM `leads` WHERE `
 </thead>
   <tbody>
 
+ <?php
+include("cr.php");
+$q = mysqli_query($dbcon, "SELECT * FROM leads WHERE sold='0' ORDER BY RAND()")or die(mysqli_error());
+ while($row = mysqli_fetch_assoc($q)){
+	 
+	 	 $countryfullname = $row['country'];
+	  $code = array_search("$countryfullname", $countrycodes);
+	 $countrycode = strtolower($code);
+	    $qer = mysqli_query($dbcon, "SELECT * FROM resseller WHERE username='".$row['resseller']."'")or die(mysql_error());
+		   while($rpw = mysqli_fetch_assoc($qer))
+			 $SellerNick = "seller".$rpw["id"]."";
+     echo "
+ <tr>     
+    <td id='leads_country'><i class='flag-icon flag-icon-$countrycode'></i>&nbsp;".htmlspecialchars($row['country'])." </td>
+    <td id='leads_about'> ".htmlspecialchars($row['infos'])." </td> 
+	<td> ".htmlspecialchars($row['number'])." </td>
+    <td id='leads_seller'> ".htmlspecialchars($SellerNick)."</td>
+    <td> ".htmlspecialchars($row['price'])."</td>
+	    <td> ".$row['date']."</td>";
+    echo '
+    <td>
+	<span id="leads'.$row['id'].'" title="buy" type="leads"><a onclick="javascript:buythistool('.$row['id'].')" class="btn btn-primary btn-xs"><font color=white>Buy</font></a></span><center>
+    </td>
+            </tr>
+     ';
+ }
+
+ ?>
 	</div>
 </div>
 <script type="text/javascript">
