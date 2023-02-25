@@ -78,7 +78,7 @@ table.floatThead-table {
 <script type="text/javascript">
              function ajaxinfo() {
                 $.ajax({
-                    type: 'GET',
+                    type: 'POST',
                     url: 'ajaxinfo.html',
                     timeout: 10000,
 
@@ -279,35 +279,47 @@ if ($r1 == "1") {
     <!-- /.navbar-collapse -->
   </div>
   <!-- /.container-fluid -->
-</nav>
-<ul class="nav nav-tabs">
-  <li class="active"><a href="#filter" data-toggle="tab">Filter</a></li>
-</ul>
-<div id="myTabContent" class="tab-content" >
-  <div class="tab-pane active in" id="filter"><table class="table"><thead><tr><th>Country</th>
-<th>Description</th>
-<th>Seller</th>
-<th></th></tr></thead><tbody><tr><td><select class='filterselect form-control input-sm' name="leads_country"><option value="">ALL</option>
-<?php
-$query = mysqli_query($dbcon, "SELECT DISTINCT(`country`) FROM `leads` WHERE `sold` = '0' ORDER BY country ASC");
-	while($row = mysqli_fetch_assoc($query)){
-	echo '<option value="'.$row['country'].'">'.$row['country'].'</option>';
+</nav>\\
+ <style>
+	 
+	 
+</style>
+<div id=lead_data>
+	<ul class="nav nav-tabs">
+  <li class="active">
+	  <a href="#filter" data-toggle="tab">Filter</a>
+		</li>
+	</ul>
+	<div id="myTabContent" class="tab-content" >
+  <div class="tab-pane active in" id="filter">
+	  <table class="lead_table">
+		  <thead>
+			  <tr>
+				  <th>Country</th>
+				  <th>Description</th>
+				  <th>Seller</th>
+				  <th>search</th>
+			  </tr>
+		  </thead>
+		  <tbody>
+			  <tr>
+				  <td>
+					  <select class='filterselect form-control input-sm' name="leads_country">
+						  <option value="">ALL Countries</option>
+<?php $query = mysqli_query($dbcon, "SELECT DISTINCT(`country`) FROM `leads` WHERE `sold` = '0' ORDER BY country ASC");while($row = mysqli_fetch_assoc($query)){
+	echo '                           <option value="'.$row['country'].'">'.$row['country'].'</option>';
 	}
 ?>
 </select>
-	  </td><td>
-	  <input class='filterinput form-control input-sm' name="leads_about" size='3'>
-	  </td><td>
-	  <select class='filterselect form-control input-sm' name="leads_seller">
-		  <option value="">ALL</option>
-<?php
-$query = mysqli_query($dbcon, "SELECT DISTINCT(`resseller`) FROM `leads` WHERE `sold` = '0' ORDER BY resseller ASC");
-	while($row = mysqli_fetch_assoc($query)){
-		 $qer = mysqli_query($dbcon, "SELECT DISTINCT(`id`) FROM resseller WHERE username='".$row['resseller']."' ORDER BY id ASC")or die(mysql_error());
-		   while($rpw = mysqli_fetch_assoc($qer))
-			 $SellerNick = "seller".$rpw["id"]."";
-	echo '<option value="'.$SellerNick.'">'.$SellerNick.'</option>';
-	}
+	  </td>search<td>
+				  <input class='filterinput form-control input-sm' name="leads_about" size='3'>
+	  </td>...<td>
+				  <select class='filterselect form-control input-sm' name="leads_seller">
+					  <option value="">ALL Sellers</option>
+<?php $query = mysqli_query($dbcon, "SELECT DISTINCT(`resseller`) FROM `leads` WHERE `sold` = '0' ORDER BY resseller ASC"); while($row = mysqli_fetch_assoc($query)){		 $qer = mysqli_query($dbcon, "SELECT DISTINCT(`id`) FROM resseller WHERE username='".$row['resseller']."' ORDER BY id ASC")or die(mysql_error());		   while($rpw = mysqli_fetch_assoc($qer))
+			                           $SellerNick = "seller".$rpw["id"]."";
+	echo '                         <option value="'.$SellerNick.'">'.$SellerNick.'</option>';
+}
 ?>
 </select></td><td><button id='filterbutton'class="btn btn-primary btn-sm" disabled>Filter <span class="glyphicon glyphicon-filter"></span></button></td></tr></tbody></table></div>
 </div>
