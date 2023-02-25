@@ -25,20 +25,17 @@ $usrid = mysqli_real_escape_string($dbcon, $_SESSION['sname']);
 </script><link rel="shortcut icon" href="../../favicon.ico" />
 <title>XBASELEET</title>
 <link rel="stylesheet" href="layout/css/bootstrap.min.css">
+<script src="layout/js/jquery-3.4.1.min.js"></script>
 <script src="layout/js/clipboard.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="layout/js/bootstrap.min.js"></script>
 <script src="layout/js/bootbox.min.js"></script>
 <link rel="stylesheet" type="text/css" href="layout/css/flags.css" />
+
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css">
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-      <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-      <script src="https://cdn.datatables.net/fixedheader/3.3.1/js/dataTables.fixedHeader.min.js"></script>
-      <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
-      
 <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.colVis.min.js"></script>
@@ -491,102 +488,47 @@ if ($reselerif == "1") {
 <li>There is <b> 2 </b> Available.</li>
 </ul>
 	</div>
-<?php
-date_default_timezone_set('UTC');
-include "includes/config.php";
-
-if (!isset($_SESSION['sname']) and !isset($_SESSION['spass'])) {
-    header("location: ../");
-    exit();
-}
-$usrid = mysqli_real_escape_string($dbcon, $_SESSION['sname']);
-?>
-
-<ul class="nav nav-tabs">
-  <li class="active"><a href="#filter" data-toggle="tab">Filter</a></li>
-</ul>
-<div id="myTabContent" class="tab-content" >
-  <div class="tab-pane active in" id="filter">
-<table class="table">
+<input type=hidden id="type" name="type" value="4" />
+	<div class="row m-3 pt-1" style="color: var(--font-color);">
+	<div class="col-xs-6 col-sm-4 col-lg-2" style="display:inline-block">
+<label for="infos" style="margin-bottom: 10px; margin-top: 5px">Description:</label>
+<input type="search" class="form-control" id="infos" style="color: var(--font-color); background-color: var(--color-card);">
+		</div>	
+<div class="col-xs-6 col-sm-4 col-lg-2" style="display:inline-block">
+	<label for="Country" style="margin-bottom: 10px; margin-top: 5px">Country :</label>
+	<select name="country" id="country" class="form-control" style="color: var(--font-color); background-color: var(--color-card);">
+		<option value="">All Countries</option>
+		<option value="Canada">Canada</option>
+		<option value="France">France</option> 
+	</select>
+		</div>
+		<div class="col-xs-6 col-sm-4 col-lg-2" style="display:inline-block">
+			<label for="seller" style="margin-bottom: 10px; margin-top: 5px">Seller :</label>
+			<select name="seller" id="seller" class="form-control" style="color: var(--font-color); background-color: var(--color-card);">
+				<option value="">All</option>
+				<option value="Seller467">Seller467</option> </select>
+		</div>
+	
+	
+</div>
+<div class="row m-2 pt-3 " style="max-width:100%; color: var(--font-color); background-color: var(--color-card);">
+<div class="col-sm-12 table-responsive">
+<table id="lead_data" class="display responsive table-hover" style="width:100%; color: var(--font-color); background-color: var(--color-card);">
 <thead>
 <tr>
-<th>Country</th>
-<th>Description</th>
-<th>Seller</th>
-<th></th></tr></thead><tbody><tr><td><select class='filterselect form-control input-sm' name="leads_country"><option value="">ALL</option>
-<?php
-$query = mysqli_query($dbcon, "SELECT DISTINCT(`country`) FROM `leads` WHERE `sold` = '0' ORDER BY country ASC");
-	while($row = mysqli_fetch_assoc($query)){
-	echo '<option value="'.$row['country'].'">'.$row['country'].'</option>';
-	}
-?>
-
-
-
-
-
-
-
-</select></td><td><input class='filterinput form-control input-sm' name="leads_about" size='3'></td><td><select class='filterselect form-control input-sm' name="leads_seller"><option value="">ALL</option>
-<?php
-$query = mysqli_query($dbcon, "SELECT DISTINCT(`resseller`) FROM `leads` WHERE `sold` = '0' ORDER BY resseller ASC");
-	while($row = mysqli_fetch_assoc($query)){
-		 $qer = mysqli_query($dbcon, "SELECT DISTINCT(`id`) FROM resseller WHERE username='".$row['resseller']."' ORDER BY id ASC")or die(mysql_error());
-		   while($rpw = mysqli_fetch_assoc($qer))
-			 $SellerNick = "seller".$rpw["id"]."";
-	echo '<option value="'.$SellerNick.'">'.$SellerNick.'</option>';
-	}
-?>
-</select></td><td><button id='filterbutton'class="btn btn-primary btn-sm" disabled>Filter <span class="glyphicon glyphicon-filter"></span></button></td></tr></tbody></table></div>
-</div>
-
-
-<table width="100%"  class="table table-striped table-bordered table-condensed sticky-header" id="table">
-<thead>
-    <tr>
-      <th scope="col" >Country</th>
-      <th scope="col">Description</th>
-      <th scope="col">Email N</th>
-
-      <th scope="col">Seller</th>
-      <th scope="col">Price</th>
-      <th scope="col">Added on </th>
-
-      <th scope="col">Buy</th>
-    </tr>
+<th data-priority="1"></th>
+<th class="all">ID</th>
+<th data-priority="3">Country</th>
+<th data-priority="6">Description</th>
+<th data-priority="7">Email N</th>
+<th data-priority="8">Seller</th>
+<th data-priority="2">Proof</th>
+<th data-priority="9">Price</th>
+<th data-priority="10">Added on </th>
+<th class="all">Buy</th>
+</tr>
 </thead>
-  <tbody>
-
- <?php
-include("cr.php");
-$q = mysqli_query($dbcon, "SELECT * FROM leads WHERE sold='0' ORDER BY RAND()")or die(mysqli_error());
- while($row = mysqli_fetch_assoc($q)){
-	 
-	 	 $countryfullname = $row['country'];
-	  $code = array_search("$countryfullname", $countrycodes);
-	 $countrycode = strtolower($code);
-	    $qer = mysqli_query($dbcon, "SELECT * FROM resseller WHERE username='".$row['resseller']."'")or die(mysql_error());
-		   while($rpw = mysqli_fetch_assoc($qer))
-			 $SellerNick = "seller".$rpw["id"]."";
-     echo "
- <tr>     
-    <td id='leads_country'><i class='flag-icon flag-icon-$countrycode'></i>&nbsp;".htmlspecialchars($row['country'])." </td>
-    <td id='leads_about'> ".htmlspecialchars($row['infos'])." </td> 
-	<td> ".htmlspecialchars($row['number'])." </td>
-    <td id='leads_seller'> ".htmlspecialchars($SellerNick)."</td>
-    <td> ".htmlspecialchars($row['price'])."</td>
-	    <td> ".$row['date']."</td>";
-    echo '
-    <td>
-	<span id="leads'.$row['id'].'" title="buy" type="leads"><a onclick="javascript:buythistool('.$row['id'].')" class="btn btn-primary btn-xs"><font color=white>Buy</font></a></span><center>
-    </td>
-            </tr>
-     ';
- }
-
- ?>
-	</div>
-</div>
+</table>
 </div>
 </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="true">
@@ -649,15 +591,13 @@ $q = mysqli_query($dbcon, "SELECT * FROM leads WHERE sold='0' ORDER BY RAND()")o
 
 </div>
 </div>
-
 <script>
-
-        $(document).ready(function(){
+	$(document).ready(function(){
             var webID;
             load_data();
 
             function load_data(myarray) {
-                $('#lead_data').DataTable({
+                $('#table').DataTable({
                     "processing": true,
                     "serverSide": true,
                     "responsive": true,
@@ -672,7 +612,7 @@ $q = mysqli_query($dbcon, "SELECT * FROM leads WHERE sold='0' ORDER BY RAND()")o
                     ],
 
                     "ajax":{
-                        url:"divPage32.html",
+                        url:"",
                         type:"POST",
                         data:{
                             data_filter:myarray,
@@ -781,3 +721,5 @@ $q = mysqli_query($dbcon, "SELECT * FROM leads WHERE sold='0' ORDER BY RAND()")o
     </script>
 </body>
 </html>
+					  
+				
