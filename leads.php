@@ -325,7 +325,7 @@ if ($r1 == "1") {
 </div>
 
 
-<table width="100%"  class="table table-striped table-bordered table-condensed sticky-header" id="table">
+<table width="100%"  class="table table-striped table-bordered table-condensed sticky-header" id="lead_table">
 <thead>
     <tr>
       <th scope="col" >Country</th>
@@ -344,6 +344,7 @@ if ($r1 == "1") {
 
 
 </div>
+	  <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
 
