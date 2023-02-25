@@ -331,15 +331,15 @@ if ($r1 == "1") {
 <table width="100%"  class="table table-striped table-bordered table-condensed sticky-header" id="lead_table">
 <thead>
     <tr>
-      <th scope="col" >Country</th>
-      <th scope="col">Description</th>
-      <th scope="col">Email N</th>
+	    <th data-priority="3">Country</th>
+	    <th data-priority="6">Description</th>
+	    
+	    <th data-priority="7">Email N</th>
+	    <th data-priority="8">Seller</th>
 
-      <th scope="col">Seller</th>
-      <th scope="col">Price</th>
-      <th scope="col">Added on </th>
-
-      <th scope="col">Buy</th>
+	    <th data-priority="9">Price</th>
+	    <th data-priority="10">Added on </th>
+	    <th class="all">Buy</th>
     </tr>
 </thead>
   <tbody>
