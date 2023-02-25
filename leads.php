@@ -188,7 +188,7 @@ if ($r1 == "1") {
 	 
 	 
 </style>
-<div id=lead_table>
+<div class="lead_table">
 <?php
 date_default_timezone_set('UTC');
 include "../includes/config.php";
