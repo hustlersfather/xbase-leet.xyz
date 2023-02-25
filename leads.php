@@ -25,17 +25,20 @@ $usrid = mysqli_real_escape_string($dbcon, $_SESSION['sname']);
 </script><link rel="shortcut icon" href="../../favicon.ico" />
 <title>XBASELEET</title>
 <link rel="stylesheet" href="layout/css/bootstrap.min.css">
-<script src="layout/js/jquery-3.4.1.min.js"></script>
 <script src="layout/js/clipboard.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="layout/js/bootstrap.min.js"></script>
 <script src="layout/js/bootbox.min.js"></script>
 <link rel="stylesheet" type="text/css" href="layout/css/flags.css" />
-
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css">
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+      <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+      <script src="https://cdn.datatables.net/fixedheader/3.3.1/js/dataTables.fixedHeader.min.js"></script>
+      <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
+      
 <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.colVis.min.js"></script>
